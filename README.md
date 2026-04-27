@@ -1,16 +1,6 @@
-# 📚 LectureBot
+# 📚 LectureBot (3-Tier Architecture)
 
-**LectureBot** is an AI-powered learning assistant that helps students upload lecture PDFs, ask intelligent questions, and maintain organized study sessions. Built with a modern 3-tier architecture for scalability and performance.
-
----
-
-## 🎯 About LectureBot
-
-LectureBot simplifies the learning process by:
-- Allowing users to upload lecture materials in PDF format
-- Providing an interactive chat interface to ask questions about the content
-- Maintaining session history for easy reference
-- Offering personalized dashboards for each user
+LectureBot is a web-based learning assistant built using a **3-tier architecture**, where users can upload lecture PDFs, ask questions, and interact with study content through a chat interface.
 
 ---
 
@@ -20,116 +10,93 @@ This project follows a structured 3-layer design:
 
 1. **Presentation Layer (Frontend)**
    - HTML, CSS, JavaScript
-   - Responsive UI (Login, Dashboard, Upload, Chat)
+   - Handles UI (Login, Dashboard, Upload, Chat)
 
 2. **Application Layer (Backend)**
-   - Node.js, Express.js
-   - Authentication, file upload, API endpoints
+   - Node.js, Express
+   - Handles authentication, file upload, API requests
 
 3. **Data Layer**
    - File storage (AWS S3 for PDFs)
-   - Session management
-   - User data handling
+   - Session/data handling (can be file-based / in-memory / DB if added)
 
 ---
 
 ## 🚀 Features
 
-- 🔐 **Secure User Authentication** - Login & Registration with JWT tokens
-- 📤 **PDF Upload** - Upload lecture files for analysis
-- 💬 **Interactive Chat** - Ask questions about uploaded content
-- 🧠 **Smart Responses** - AI-powered answers from lecture materials
-- 📊 **Session History** - Track and access previous study sessions
-- 🎨 **Clean UI** - Modern, responsive interface
+- 🔐 User Login & Registration
+- 📤 Upload Lecture PDFs to AWS S3
+- 💬 Ask Questions from Uploaded Content
+- 🧠 Interactive Study Chat
+- 📁 Session Handling
+- 🎨 Clean UI with multiple pages
 
 ---
 
 ## 📂 Project Structure
 
-```
+
 LectureBot/
 │
-├── public/                 # Frontend (Presentation Layer)
-│   ├── index.html          # Login page
-│   └── dashboard.html      # Dashboard & chat interface
+├── public/ # Frontend (Presentation Layer)
+│ ├── index.html
+│ ├── dashboard.html
+│ ├── upload.html
+│ └── chat.html
 │
-├── routes/                 # Backend (Application Layer)
-│   ├── auth.js             # Authentication routes
-│   ├── chat.js             # Chat endpoints
-│   └── upload.js           # File upload handling
-│
-├── models/                 # Data models
-│   ├── User.js             # User schema
-│   └── Session.js          # Session schema
-│
-├── python/                 # AI Engine
-│   ├── ai_engine.py        # LLM responses
-│   ├── pdf_reader.py       # PDF processing
-│   └── requirements.txt
-│
-├── uploads/                # Temporary storage
-├── server.js               # Main server
+├── routes/ # Backend routes (Application Layer)
+├── uploads/ # Temporary file storage
+├── config/ # AWS & environment config
+├── server.js # Main server
 ├── package.json
-├── .env                    # Environment config
+├── .env
 └── README.md
-```
 
----
-
-## ⚙️ Quick Setup
-
-1. **Install dependencies**
-   ```bash
-   npm install
-   cd python && pip install -r requirements.txt
-   ```
-
-2. **Configure environment**
-   ```bash
-   Create .env file with:
-   PORT=5000
-   JWT_SECRET=your_secret_key
-   ```
-
-3. **Start server**
-   ```bash
-   npm start
-   ```
-
-4. **Open browser**
-   ```
-   http://localhost:5000
-   ```
 
 ---
 
 ## 🖥️ Screenshots
 
 ### 🔐 Login Page
-Upload your lecture PDFs, ask smart questions, and keep your entire study chat history perfectly organized in one place.
-
-![Login Page](login-page.png)
+![Login](assets/login-page.png)
 
 ### 🏠 Dashboard
-Welcome back to your personalized dashboard. Select a recent session to continue studying, or start a new chat.
+![Dashboard](assets/dashboard.png)
 
-![Dashboard](dashboard.png)
+### 📤 Upload PDF
+![Upload](assets/upload-page.png)
 
-### 💬 Study Chat Interface
-Upload PDF lectures on the left, ask questions on the right. Get instant AI-powered responses about your study materials.
+### 💬 Chat Interface
+![Chat](assets/chat-page.png)
 
-![Study Chat](study-chat.png)
+### 🤖 Chat Demo
+![Demo](assets/chat-demo.png)
 
 ---
 
-## 📌 Tech Stack
+## ⚙️ Setup Instructions
 
-- **Frontend**: HTML5, CSS3, JavaScript
-- **Backend**: Node.js, Express.js
-- **AI Processing**: Python
-- **File Storage**: AWS S3
-- **Authentication**: JWT
-- **Architecture**: 3-Tier
+1.Install dependencies
+npm install
+2.Create .env file
+PORT=5000
+AWS_ACCESS_KEY=your_access_key
+AWS_SECRET_KEY=your_secret_key
+AWS_REGION=ap-south-1
+AWS_BUCKET=lecturebot-pdfs
+JWT_SECRET=your_secret
+3.Run server
+npm start
+4.Open in browser
+http://localhost:5000
+☁️ Cloud Integration
+AWS S3 used for storing uploaded PDFs
+IAM used for secure access control
+🛠️ Tech Stack
+Frontend: HTML, CSS, JavaScript
+Backend: Node.js, Express
+Cloud: AWS S3
+Architecture: 3-Tier
 
 ## 🏗️ 3-Tier Architecture
 
