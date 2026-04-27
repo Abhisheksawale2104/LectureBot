@@ -36,8 +36,7 @@ This project follows a structured 3-layer design:
 ## 📂 Project Structure
 
 
-LectureBot/
-│
+LectureBot/│
 ├── public/ # Frontend (Presentation Layer)
 │ ├── index.html
 │ ├── dashboard.html
