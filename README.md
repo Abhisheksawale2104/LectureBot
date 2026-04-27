@@ -33,24 +33,6 @@ This project follows a structured 3-layer design:
 
 ---
 
-## 📂 Project Structure
-
-
-LectureBot/│
-├── public/ # Frontend (Presentation Layer)
-│ ├── index.html
-│ ├── dashboard.html
-│ ├── upload.html
-│ └── chat.html
-│
-├── routes/ # Backend routes (Application Layer)
-├── uploads/ # Temporary file storage
-├── config/ # AWS & environment config
-├── server.js # Main server
-├── package.json
-├── .env
-└── README.md
-
 
 ---
 
