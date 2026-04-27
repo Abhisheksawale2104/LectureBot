@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LectureBot</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --brand: #6366f1;
+      --brand-strong: #4f46e5;
+      --accent: #0ea5e9;
+      --danger: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding-top: 70px; /* Space for fixed navbar */
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, #e0e7ff 0%, transparent 30%),
+        radial-gradient(circle at bottom right, #e0f2fe 0%, transparent 35%),
+        var(--bg);
+      min-height: 100vh;
+    }
+
+    /* Navigation Bar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      padding: 0 30px;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--brand-strong);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--brand);
+    }
+
+    .shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 20px 48px;
+    }
+
+    .hero {
+      padding: 28px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 700px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 24px;
+      margin-top: 20px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+      transition: box-shadow 0.2s ease;
+    }
+    
+    .card:hover {
+      box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h2 {
+      margin: 0 0 14px;
+      font-size: 1.2rem;
+    }
+
+    .stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    input,
+    textarea,
+    button {
+      width: 100%;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    input,
+    textarea {
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      transition: border-color 0.2s ease;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    button {
+      border: 0;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      background: var(--brand);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.2);
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      background: var(--brand-strong);
+      box-shadow: 0 6px 15px -3px rgba(99, 102, 241, 0.3);
+    }
+
+    button.secondary {
+      background: #f1f5f9;
+      color: var(--ink);
+      box-shadow: none;
+      border: 1px solid var(--line);
+    }
+    
+    button.secondary:hover {
+      background: #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .status {
+      margin-top: 8px;
+      min-height: 24px;
+      color: var(--muted);
+    }
+
+    .status.error {
+      color: var(--danger);
+    }
+
+    .status.success {
+      color: var(--brand-strong);
+    }
+
+    .session-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .chat-area {
+      display: flex;
+      flex-direction: column;
+      height: 75vh;
+    }
+
+    .chat-box {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 10px 5px;
+      margin-bottom: 16px;
+    }
+
+    .session-item {
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+      text-align: left;
+    }
+
+    .bubble {
+      padding: 14px 18px;
+      border-radius: 20px;
+      text-align: left;
+      max-width: 85%;
+      width: fit-content;
+      line-height: 1.5;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+    
+    .session-item {
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    
+    .session-item:hover {
+      background: #f8fafc;
+    }
+
+    .session-item.active {
+      border-color: var(--brand);
+      background: #eef2ff;
+    }
+
+    .bubble.user {
+      background: var(--brand);
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      border: none;
+    }
+
+    .bubble.bot {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .label {
+      display: inline-block;
+      margin-bottom: 8px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .bubble.user .label {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .bubble.bot .label {
+      color: var(--muted);
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .row > * {
+      flex: 1 1 180px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .auth-container {
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* Custom Scrollbar for nicer UI */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1; 
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8; 
+    }
+
+    @media (max-width: 860px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      .chat-area {
+        height: 60vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">🎓 LectureBot</div>
+      <div id="navLinks" class="nav-links hidden">
+        <a href="#" onclick="switchPage('homeView'); return false;" id="nav-homeView">Dashboard</a>
+        <a href="#" onclick="switchPage('chatView'); return false;" id="nav-chatView">Study Chat</a>
+        <a href="#" onclick="switchPage('profileView'); return false;" id="nav-profileView">Profile</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 1. Authentication Page -->
+  <div id="authView" class="shell view">
+    <section class="hero" style="text-align: center; margin-bottom: 40px;">
+      <h1>Welcome to LectureBot</h1>
+      <p>Upload your lecture PDFs, ask smart questions, and keep your entire study chat history perfectly organized in one place.</p>
+    </section>
+
+    <div class="card auth-container">
+      <h2 style="text-align: center;">Account Login</h2>
+          <div class="stack">
+            <input id="username" placeholder="Username" />
+            <input id="email" type="email" placeholder="Email" />
+            <input id="password" type="password" placeholder="Password" />
+            <div class="row">
+              <button id="registerBtn">Register</button>
+              <button id="loginBtn" class="secondary">Login</button>
+            </div>
+        <div id="authStatus" class="status" style="text-align: center;"></div>
+          </div>
+        </div>
+  </div>
+
+  <!-- 2. Dashboard / Home Page -->
+  <div id="homeView" class="shell view hidden">
+    <div class="hero" style="text-align: center; margin-bottom: 24px;">
+      <h1>Welcome back, <span id="homeUsername"></span>!</h1>
+      <p>Select a recent session to continue studying, or start a new chat.</p>
+      <button onclick="switchPage('chatView')" style="margin-top: 16px; width: auto;">Start New Session</button>
+    </div>
+    <div class="card">
+      <h2>Your Recent Sessions</h2>
+      <button id="refreshSessionsBtnHome" class="secondary" style="margin-bottom: 12px; width: auto; padding: 8px 16px;">Refresh</button>
+      <div id="sessionListHome" class="session-list"></div>
+    </div>
+  </div>
+
+  <!-- 3. Study Chat Page -->
+  <div id="chatView" class="shell view hidden">
+    <section class="dashboard-grid">
+      <!-- Sidebar -->
+      <aside class="stack">
+        <div class="card">
+          <h2>Upload PDF</h2>
+          <div class="stack">
+            <input id="pdfFile" type="file" accept="application/pdf" />
+            <button id="uploadBtn">Upload Lecture</button>
+            <div id="uploadStatus" class="status"></div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Chat Area -->
+      <main class="card chat-area">
+        <div style="border-bottom: 1px solid var(--line); padding-bottom: 12px; margin-bottom: 12px;">
+          <h2 style="margin: 0 0 4px;">Study Chat</h2>
+          <p class="muted" style="margin: 0;">Currently analyzing: <strong id="currentSessionLabel" style="color: var(--ink);">None selected</strong></p>
+        </div>
+        
+        <div id="chatBox" class="chat-box"></div>
+        
+        <div class="stack" style="margin-top: auto;">
+            <textarea id="question" placeholder="Ask something about the uploaded lecture..."></textarea>
+            <button id="askBtn">Ask LectureBot</button>
+            <div id="chatStatus" class="status"></div>
+          </div>
+      </main>
+    </section>
+  </div>
+
+  <!-- 4. Profile Page -->
+  <div id="profileView" class="shell view hidden">
+    <div class="dashboard-grid">
+      <div class="stack">
+        <div class="card" style="text-align: center; padding: 40px 20px;">
+          <div style="font-size: 4rem; margin-bottom: 10px; background: #eef2ff; display: inline-block; padding: 20px; border-radius: 50%;">👤</div>
+          <h2 id="profileUsername"></h2>
+          <p class="muted">Student Account</p>
+          <div class="stack" style="margin-top: 32px;">
+            <button id="logoutBtn" class="secondary">Logout Securely</button>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Change Password</h2>
+          <div class="stack">
+            <input id="currentPassword" type="password" placeholder="Current Password" />
+            <input id="newPassword" type="password" placeholder="New Password" />
+            <button id="updatePasswordBtn">Update Password</button>
+            <div id="passwordStatus" class="status"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Manage Sessions</h2>
+        <button id="refreshProfileSessionsBtn" class="secondary" style="margin-bottom: 12px; width: auto; padding: 8px 16px;">Refresh Sessions</button>
+        <div id="profileSessionList" class="session-list" style="max-height: 60vh;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      token: localStorage.getItem('lecturebot_token') || '',
+      username: localStorage.getItem('lecturebot_username') || '',
+      sessionId: localStorage.getItem('lecturebot_session_id') || '',
+    };
+
+    const authStatus = document.getElementById('authStatus');
+    const uploadStatus = document.getElementById('uploadStatus');
+    const chatStatus = document.getElementById('chatStatus');
+    const chatBox = document.getElementById('chatBox');
+    const currentSessionLabel = document.getElementById('currentSessionLabel');
+    
+    const authView = document.getElementById('authView');
+    const navLinks = document.getElementById('navLinks');
+
+    function setStatus(el, text, type = '') {
+      el.textContent = text;
+      el.className = `status ${type}`.trim();
+    }
+
+    function switchPage(pageId) {
+      document.querySelectorAll('.view').forEach(el => el.classList.add('hidden'));
+      document.getElementById(pageId).classList.remove('hidden');
+
+      document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
+      const activeLink = document.getElementById('nav-' + pageId);
+      if (activeLink) activeLink.classList.add('active');
+    }
+
+    function renderAuthState() {
+      if (state.token && state.username) {
+        navLinks.classList.remove('hidden');
+        document.getElementById('homeUsername').textContent = state.username;
+        document.getElementById('profileUsername').textContent = state.username;
+        switchPage('homeView');
+      } else {
+        navLinks.classList.add('hidden');
+        switchPage('authView');
+      }
+    }
+
+    function authHeaders() {
+      return state.token ? { Authorization: `Bearer ${state.token}` } : {};
+    }
+
+    function addMessage(role, content) {
+      const bubble = document.createElement('div');
+      bubble.className = `bubble ${role}`;
+      const labelText = role === 'user' ? 'You' : 'LectureBot';
+      bubble.innerHTML = `<div class="label">${labelText}</div><div>${content.replace(/\n/g, '<br>')}</div>`;
+      chatBox.appendChild(bubble);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function clearChat() {
+      chatBox.innerHTML = '';
+    }
+
+    async function request(path, options = {}) {
+      const response = await fetch(path, {
+        ...options,
+        headers: {
+          ...(options.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
+          ...authHeaders(),
+          ...(options.headers || {}),
+        },
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.message || data.error || 'Request failed');
+      }
+      return data;
+    }
+
+    async function register() {
+      try {
+        setStatus(authStatus, 'Registering...');
+        const data = await request('/api/auth/register', {
+          method: 'POST',
+          body: JSON.stringify({
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+          }),
+        });
+        state.token = data.token;
+        state.username = data.username;
+        localStorage.setItem('lecturebot_token', state.token);
+        localStorage.setItem('lecturebot_username', state.username);
+        renderAuthState();
+        loadSessions();
+      } catch (error) {
+        setStatus(authStatus, error.message, 'error');
+      }
+    }
+
+    async function login() {
+      try {
+        setStatus(authStatus, 'Logging in...');
+        const data = await request('/api/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+          }),
+        });
+        state.token = data.token;
+        state.username = data.username;
+        localStorage.setItem('lecturebot_token', state.token);
+        localStorage.setItem('lecturebot_username', state.username);
+        renderAuthState();
+        loadSessions();
+      } catch (error) {
+        setStatus(authStatus, error.message, 'error');
+      }
+    }
+
+    async function uploadPdf() {
+      const file = document.getElementById('pdfFile').files[0];
+      if (!file) {
+        setStatus(uploadStatus, 'Choose a PDF first.', 'error');
+        return;
+      }
+
+      if (!state.token) {
+        setStatus(uploadStatus, 'Login first before uploading.', 'error');
+        return;
+      }
+
+      try {
+        const formData = new FormData();
+        formData.append('pdf', file);
+
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          headers: authHeaders(),
+          body: formData,
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message || 'Upload failed');
+        }
+
+        state.sessionId = data.sessionId;
+        localStorage.setItem('lecturebot_session_id', state.sessionId);
+        currentSessionLabel.textContent = data.pdfName;
+        setStatus(uploadStatus, `Uploaded: ${data.pdfName}`, 'success');
+        clearChat();
+        await loadSessions();
+      } catch (error) {
+        setStatus(uploadStatus, error.message, 'error');
+      }
+    }
+
+    async function loadSessions() {
+      const sessionListHome = document.getElementById('sessionListHome');
+      const profileSessionList = document.getElementById('profileSessionList');
+
+      if (!state.token) {
+        sessionListHome.innerHTML = '<div class="muted">Login to see sessions.</div>';
+        if (profileSessionList) profileSessionList.innerHTML = '<div class="muted">Login to see sessions.</div>';
+        return;
+      }
+
+      try {
+        const sessions = await request('/api/upload/sessions');
+        sessionListHome.innerHTML = '';
+        if (profileSessionList) profileSessionList.innerHTML = '';
+
+        if (!sessions.length) {
+          sessionListHome.innerHTML = '<div class="muted">No sessions yet.</div>';
+          if (profileSessionList) profileSessionList.innerHTML = '<div class="muted">No sessions yet.</div>';
+          return;
+        }
+
+        sessions.forEach((session) => {
+          const itemHome = document.createElement('button');
+          itemHome.className = `session-item${state.sessionId === session._id ? ' active' : ''}`;
+          itemHome.innerHTML = `<strong>${session.pdfName}</strong><br><span class="muted">${new Date(session.createdAt).toLocaleString()}</span>`;
+          itemHome.onclick = async () => {
+            state.sessionId = session._id;
+            localStorage.setItem('lecturebot_session_id', state.sessionId);
+            currentSessionLabel.textContent = session.pdfName;
+            await loadHistory();
+            switchPage('chatView');
+            await loadSessions();
+          };
+          sessionListHome.appendChild(itemHome);
+          
+          if (profileSessionList) {
+            const profileItem = document.createElement('div');
+            profileItem.className = `session-item row`;
+            profileItem.style.justifyContent = 'space-between';
+            profileItem.style.alignItems = 'center';
+            profileItem.innerHTML = `
+              <div>
+                <strong>${session.pdfName}</strong><br>
+                <span class="muted">${new Date(session.createdAt).toLocaleString()}</span>
+              </div>
+              <button class="secondary" style="width: auto; padding: 6px 12px; color: var(--danger);" onclick="deleteSession('${session._id}')">Delete</button>
+            `;
+            profileSessionList.appendChild(profileItem);
+          }
+        });
+      } catch (error) {
+        sessionListHome.innerHTML = `<div class="status error">${error.message}</div>`;
+        if (profileSessionList) profileSessionList.innerHTML = `<div class="status error">${error.message}</div>`;
+      }
+    }
+
+    async function loadHistory() {
+      if (!state.sessionId || !state.token) {
+        return;
+      }
+
+      try {
+        const data = await request(`/api/chat/history/${state.sessionId}`);
+        currentSessionLabel.textContent = data.pdfName;
+        clearChat();
+        data.messages.forEach((message) => addMessage(message.role, message.content));
+      } catch (error) {
+        setStatus(chatStatus, error.message, 'error');
+      }
+    }
+
+    function logout() {
+      state.token = '';
+      state.username = '';
+      state.sessionId = '';
+      localStorage.removeItem('lecturebot_token');
+      localStorage.removeItem('lecturebot_username');
+      localStorage.removeItem('lecturebot_session_id');
+      clearChat();
+      currentSessionLabel.textContent = 'None selected';
+      setStatus(authStatus, '');
+      renderAuthState();
+    }
+
+    async function askQuestion() {
+      const question = document.getElementById('question').value.trim();
+      if (!question) {
+        setStatus(chatStatus, 'Type a question first.', 'error');
+        return;
+      }
+
+      if (!state.sessionId) {
+        setStatus(chatStatus, 'Upload or select a session first.', 'error');
+        return;
+      }
+
+      try {
+        setStatus(chatStatus, 'LectureBot is thinking...');
+        addMessage('user', question);
+        document.getElementById('question').value = '';
+
+        const data = await request('/api/chat/ask', {
+          method: 'POST',
+          body: JSON.stringify({
+            sessionId: state.sessionId,
+            question,
+          }),
+        });
+
+        addMessage('bot', data.answer);
+        setStatus(chatStatus, 'Answer received.', 'success');
+      } catch (error) {
+        setStatus(chatStatus, error.message, 'error');
+      }
+    }
+
+    async function updatePassword() {
+      const currentPassword = document.getElementById('currentPassword').value;
+      const newPassword = document.getElementById('newPassword').value;
+      const passwordStatus = document.getElementById('passwordStatus');
+      
+      if (!currentPassword || !newPassword) {
+        setStatus(passwordStatus, 'Please fill in both fields.', 'error');
+        return;
+      }
+      
+      try {
+        setStatus(passwordStatus, 'Updating password...');
+        await request('/api/auth/password', {
+          method: 'PUT',
+          body: JSON.stringify({ currentPassword, newPassword }),
+        });
+        setStatus(passwordStatus, 'Password updated successfully!', 'success');
+        document.getElementById('currentPassword').value = '';
+        document.getElementById('newPassword').value = '';
+      } catch (error) {
+        setStatus(passwordStatus, error.message, 'error');
+      }
+    }
+
+    async function deleteSession(id) {
+      if (!confirm('Are you sure you want to delete this session?')) return;
+      try {
+        await request(`/api/upload/sessions/${id}`, { method: 'DELETE' });
+        if (state.sessionId === id) {
+          state.sessionId = '';
+          localStorage.removeItem('lecturebot_session_id');
+          document.getElementById('currentSessionLabel').textContent = 'None selected';
+          clearChat();
+        }
+        await loadSessions();
+      } catch (error) {
+        alert('Failed to delete session: ' + error.message);
+      }
+    }
+
+    document.getElementById('registerBtn').addEventListener('click', register);
+    document.getElementById('loginBtn').addEventListener('click', login);
+    document.getElementById('uploadBtn').addEventListener('click', uploadPdf);
+    document.getElementById('refreshSessionsBtnHome').addEventListener('click', loadSessions);
+    document.getElementById('refreshProfileSessionsBtn').addEventListener('click', loadSessions);
+    document.getElementById('updatePasswordBtn').addEventListener('click', updatePassword);
+    document.getElementById('askBtn').addEventListener('click', askQuestion);
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+
+    renderAuthState();
+    currentSessionLabel.textContent = state.sessionId ? 'Previous Session' : 'None selected';
+    loadSessions();
+    loadHistory();
+  </script>
+</body>
+</html>

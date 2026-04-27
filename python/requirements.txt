@@ -1,0 +1,7 @@
+flask
+flask-cors
+PyPDF2
+openai
+boto3
+python-dotenv
+requests
