@@ -70,7 +70,7 @@ LectureBot/
 
 
 
-###📚 LectureBot Profile
+### 📚 LectureBot | User Profile 🚀
 
 <img width="1912" height="913" alt="image" src="https://github.com/user-attachments/assets/e330795e-7ddc-4738-94d6-ef0235c20481" />
 
