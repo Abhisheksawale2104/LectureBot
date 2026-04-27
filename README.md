@@ -77,6 +77,7 @@ LectureBot/
 ## ⚙️ Setup Instructions
 
 1.Install dependencies
+
 npm install
 2.Create .env file
 PORT=5000
