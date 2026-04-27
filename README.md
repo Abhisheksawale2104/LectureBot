@@ -100,4 +100,3 @@ Architecture: 3-Tier
 
 
 
-If you want, I can also generate a second version of this README specifically shaped as a `client/` + `server/` split for a friend’s repo structure.
