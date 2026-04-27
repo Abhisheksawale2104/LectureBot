@@ -57,7 +57,9 @@ LectureBot/│
 ## 🖥️ Screenshots
 
 ### 🔐 Login Page
-![Login](assets/login-page.png)
+![Login]
+<img width="1600" height="777" alt="Login PAGE" src="https://github.com/user-attachments/assets/c98a3c7d-3661-47de-a457-86f6ea378c4c" />
+
 
 ### 🏠 Dashboard
 ![Dashboard](assets/dashboard.png)
@@ -73,5 +75,42 @@ LectureBot/│
 
 ---
 
+## ⚙️ Setup Instructions
 
+### 1. Install dependencies
+```bash
+npm install
+```
+
+### 2. Create `.env` file
+```env
+PORT=5000
+AWS_ACCESS_KEY=your_access_key
+AWS_SECRET_KEY=your_secret_key
+AWS_REGION=ap-south-1
+AWS_BUCKET=lecturebot-pdfs
+JWT_SECRET=your_secret
+```
+
+### 3. Run server
+```bash
+npm start
+```
+
+### 4. Open in browser
+http://localhost:5000
+
+---
+
+## ☁️ Cloud Integration
+- AWS S3 used for storing uploaded PDFs  
+- IAM used for secure access control  
+
+---
+
+## 🛠️ Tech Stack
+- **Frontend:** HTML, CSS, JavaScript  
+- **Backend:** Node.js, Express  
+- **Cloud:** AWS S3  
+- **Architecture:** 3-Tier  
 
