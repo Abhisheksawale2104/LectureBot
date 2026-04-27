@@ -68,6 +68,10 @@ LectureBot/
 ### 📤 Upload PDF
 <img width="1600" height="777" alt="image" src="https://github.com/user-attachments/assets/bed6bdf2-939c-45c7-a310-477d4ce2ae4a" />
 
+
+###📚 LectureBot Profile
+<img width="1912" height="913" alt="image" src="https://github.com/user-attachments/assets/e330795e-7ddc-4738-94d6-ef0235c20481" />
+
 ---
 
 ## ⚙️ Setup Instructions
