@@ -32,28 +32,41 @@ This project follows a structured 3-layer design:
 - 🎨 Clean UI with multiple pages
 
 ---
+## 📂 Project Structure
 
+```
+LectureBot/
+│
+├── public/               # Frontend (Presentation Layer)
+│   ├── index.html
+│   ├── dashboard.html
+│   ├── upload.html
+│   └── chat.html
+│
+├── routes/               # Backend routes (Application Layer)
+├── uploads/              # Temporary file storage
+├── config/               # AWS & environment config
+├── server.js             # Main server
+├── package.json
+├── .env
+└── README.md
+```
 
 ---
 
 ## 🖥️ Screenshots
 
 ### 🔐 Login Page
-![Login]
+
 <img width="1600" height="777" alt="Login PAGE" src="https://github.com/user-attachments/assets/c98a3c7d-3661-47de-a457-86f6ea378c4c" />
 
 
 ### 🏠 Dashboard
-![Dashboard](assets/dashboard.png)
+<img width="1600" height="768" alt="Dashbord page" src="https://github.com/user-attachments/assets/1d28cd21-724a-4c3c-a795-9c017e6294e6" />
+
 
 ### 📤 Upload PDF
-![Upload](assets/upload-page.png)
-
-### 💬 Chat Interface
-![Chat](assets/chat-page.png)
-
-### 🤖 Chat Demo
-![Demo](assets/chat-demo.png)
+<img width="1600" height="777" alt="image" src="https://github.com/user-attachments/assets/bed6bdf2-939c-45c7-a310-477d4ce2ae4a" />
 
 ---
 
