@@ -1,16 +1,172 @@
-# LectureBot
+# 📚 LectureBot
 
-LectureBot is a full-stack learning assistant that lets users upload lecture PDFs, ask questions about the content, and keep a study session history.
+**LectureBot** is an AI-powered learning assistant that helps students upload lecture PDFs, ask intelligent questions, and maintain organized study sessions. Built with a modern 3-tier architecture for scalability and performance.
+
+---
+
+## 🎯 About LectureBot
+
+LectureBot simplifies the learning process by:
+- Allowing users to upload lecture materials in PDF format
+- Providing an interactive chat interface to ask questions about the content
+- Maintaining session history for easy reference
+- Offering personalized dashboards for each user
+
+---
+
+## 🏗️ Architecture (3-Tier)
+
+This project follows a structured 3-layer design:
+
+1. **Presentation Layer (Frontend)**
+   - HTML, CSS, JavaScript
+   - Responsive UI (Login, Dashboard, Upload, Chat)
+
+2. **Application Layer (Backend)**
+   - Node.js, Express.js
+   - Authentication, file upload, API endpoints
+
+3. **Data Layer**
+   - File storage (AWS S3 for PDFs)
+   - Session management
+   - User data handling
+
+---
+
+## 🚀 Features
+
+- 🔐 **Secure User Authentication** - Login & Registration with JWT tokens
+- 📤 **PDF Upload** - Upload lecture files for analysis
+- 💬 **Interactive Chat** - Ask questions about uploaded content
+- 🧠 **Smart Responses** - AI-powered answers from lecture materials
+- 📊 **Session History** - Track and access previous study sessions
+- 🎨 **Clean UI** - Modern, responsive interface
+
+---
+
+## 📂 Project Structure
+
+```
+LectureBot/
+│
+├── public/                 # Frontend (Presentation Layer)
+│   ├── index.html          # Login page
+│   └── dashboard.html      # Dashboard & chat interface
+│
+├── routes/                 # Backend (Application Layer)
+│   ├── auth.js             # Authentication routes
+│   ├── chat.js             # Chat endpoints
+│   └── upload.js           # File upload handling
+│
+├── models/                 # Data models
+│   ├── User.js             # User schema
+│   └── Session.js          # Session schema
+│
+├── python/                 # AI Engine
+│   ├── ai_engine.py        # LLM responses
+│   ├── pdf_reader.py       # PDF processing
+│   └── requirements.txt
+│
+├── uploads/                # Temporary storage
+├── server.js               # Main server
+├── package.json
+├── .env                    # Environment config
+└── README.md
+```
+
+---
+
+## ⚙️ Quick Setup
+
+1. **Install dependencies**
+   ```bash
+   npm install
+   cd python && pip install -r requirements.txt
+   ```
+
+2. **Configure environment**
+   ```bash
+   Create .env file with:
+   PORT=5000
+   JWT_SECRET=your_secret_key
+   ```
+
+3. **Start server**
+   ```bash
+   npm start
+   ```
+
+4. **Open browser**
+   ```
+   http://localhost:5000
+   ```
+
+---
+
+## 🖥️ Screenshots
+
+### 🔐 Login Page
+Upload your lecture PDFs, ask smart questions, and keep your entire study chat history perfectly organized in one place.
+
+![Login Page](login-page.png)
+
+### 🏠 Dashboard
+Welcome back to your personalized dashboard. Select a recent session to continue studying, or start a new chat.
+
+![Dashboard](dashboard.png)
+
+### 💬 Study Chat Interface
+Upload PDF lectures on the left, ask questions on the right. Get instant AI-powered responses about your study materials.
+
+![Study Chat](study-chat.png)
+
+---
+
+## 📌 Tech Stack
+
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Backend**: Node.js, Express.js
+- **AI Processing**: Python
+- **File Storage**: AWS S3
+- **Authentication**: JWT
+- **Architecture**: 3-Tier
+
+## 🏗️ 3-Tier Architecture
+
+```
+┌─────────────────────────────────────────┐
+│  PRESENTATION LAYER (Frontend)          │
+│  - index.html (Login Page)              │
+│  - dashboard.html (Dashboard)           │
+│  - Study Chat Interface                 │
+└─────────────────┬───────────────────────┘
+                  │
+┌─────────────────▼───────────────────────┐
+│  BUSINESS LOGIC LAYER (Backend)         │
+│  - Express.js Server (server.js)        │
+│  - Routes: auth, chat, upload           │
+│  - Python AI Engine (ai_engine.py)      │
+│  - PDF Processing (pdf_reader.py)       │
+└─────────────────┬───────────────────────┘
+                  │
+┌─────────────────▼───────────────────────┐
+│  DATA LAYER (Storage & Processing)      │
+│  - File-based storage (uploads/)        │
+│  - Session data management              │
+│  - User authentication tokens           │
+└─────────────────────────────────────────┘
+```
 
 ## 🚀 Key Features
 
-- **User Authentication**: Secure login and registration flow.
+- **User Authentication**: Secure login and registration flow using JWT tokens.
 - **Personalized Dashboard**: Welcome screen for returning users and quick access to recent sessions.
-- **PDF Upload**: Upload lecture notes in PDF format for study reference.
-- **Study Chat**: Interactive AI chat interface that analyzes uploaded documents and answers user questions.
-- **Modern UI**: Clean, responsive layout with login, dashboard, and study chat screens.
+- **PDF Upload**: Upload lecture notes in PDF format for AI analysis.
+- **Study Chat**: Interactive AI chat interface powered by Python that analyzes documents and answers user questions.
+- **Multi-Layer Processing**: Python AI engine processes PDFs separately from the Node.js backend.
+- **Session Management**: Track and retrieve study session history.
 
-## 📁 Suggested Project Structure
+## 📁 Project Structure (3-Tier)
 
 Use a structure similar to a professional full-stack application:
 
