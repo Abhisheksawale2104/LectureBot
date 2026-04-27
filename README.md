@@ -78,8 +78,11 @@ LectureBot/│
 1.Install dependencies
 
 npm install
+
 2.Create .env file
+
 PORT=5000
+
 AWS_ACCESS_KEY=your_access_key
 AWS_SECRET_KEY=your_secret_key
 AWS_REGION=ap-south-1
